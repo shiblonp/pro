@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using project1.Models;
+using project1.DAL;
+using System.Web.Security;
 
 namespace project1.Controllers
 {
     public class HomeController : Controller
     {
+        Mission db = new Mission();
         public ActionResult Index()
         {
             return View();
@@ -30,9 +34,36 @@ namespace project1.Controllers
         {
             return View();
         }
+        public ActionResult SignIn()
+        {
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SignIn(Users user, bool rememberMe = false)
+        {
+            var verify = db.user.Where(u => user.userEmail == u.userEmail && user.userPassword == u.userPassword).FirstOrDefault();
+
+            if (verify != null)
+            {
+                FormsAuthentication.SetAuthCookie(verify.userEmail, rememberMe);
+                Session["userID"] = verify.userID;
+
+                return RedirectToAction("MissPage", "Home", new { userID = verify.userID });
+            }
+            else
+            {
+                ModelState.AddModelError("", "User name, or password is incorrect");
+            }
+            return View();
+        }
+        public ActionResult Register()
+        {
+            return View();
+        }
         public ActionResult Mission(string mission)
         {
-            if(mission=="Tonga")
+            /*if (mission == "Tonga")
             {
                 ViewBag.Name = "Tonga, Nuku'alofa Mission";
                 ViewBag.Pic = Url.Content("~/Images/peopleTonga.jpg");
@@ -47,7 +78,7 @@ namespace project1.Controllers
                 ViewBag.Answer2 = "Tongans are generally receptive to the missionaries because many Tongans have family members who are members of the church";
                 ViewBag.Answer3 = "Tongans typically commute by walking because the distance on each respective island is relatively small";
             }
-            else if(mission=="Florida")
+            else if (mission == "Florida")
             {
                 ViewBag.Name = "Florida, Orlando Mission";
                 ViewBag.Pic = Url.Content("~/Images/peopleFl.jpg");
@@ -62,7 +93,7 @@ namespace project1.Controllers
                 ViewBag.Answer2 = "Reception to missionaries is different througout Florida because of the large mix of cultures";
                 ViewBag.Answer3 = "The commute in Florida is typically by car, public transportation isn't very developed there";
             }
-            else if(mission=="Salvador")
+            else if (mission == "Salvador")
             {
                 ViewBag.Name = "El Salvador, San Salvador East Mission";
                 ViewBag.Pic = Url.Content("~/Images/peopleSal.jpg");
@@ -76,9 +107,9 @@ namespace project1.Controllers
                 ViewBag.Answer1 = "El Salvador is famous for their Pupusas. They also eat rice and beans";
                 ViewBag.Answer2 = "People are very receptive to missionaries in El Salvador because of their humble living circumstances";
                 ViewBag.Answer3 = "Public transportation such as buses is the main source for comuters in El Salvador";
-            }
-
-            return View();
+            }*/
+            //returning all applicable data that is present on the user missionquestion model
+            return View(db.usermissionquestion);
         }
     }
 }
