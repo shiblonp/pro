@@ -11,7 +11,7 @@ namespace project1.Models
     [Table("Missions")]
     public class Missions
     {
-        
+        [HiddenInput(DisplayValue = false)]
         public int missionID { get; set; }
         [Required(ErrorMessage = "Please enter a description!")]
         public string missionName { get; set; }
