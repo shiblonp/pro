@@ -19,5 +19,6 @@ namespace project1.DAL
         public DbSet<MissionQuestions> missionQuestion { get; set; }
         public DbSet<Missions> mission { get; set; }
         public DbSet<Users> user { get; set; }
+        public DbSet<UserMissionQuestions> usermissionquestion { get; set; }
     }
 }
