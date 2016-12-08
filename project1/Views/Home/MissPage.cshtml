@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "MissPage";
+}
+
+<div>
+<h4 class="text-center">Mission Selection</h4>
+</div>
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Missions
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+        <li><a href="@Url.Action("Mission" , new { mission="Tonga" })">Tonga, nuku'alofa </a></li>
+        <li><a href="@Url.Action("Mission", new { mission = "Salvador" })">El Salvador, San Salvador East</a></li>
+        <li><a href="@Url.Action("Mission", new { mission = "Florida" })">Florida, Orlando</a></li>
+    </ul>
+</div>
+        
+<div class="jumbotron">
+    <img class="center-block" src="~/Images/World.jpg" />
+</div>

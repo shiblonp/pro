@@ -1,0 +1,10 @@
+﻿body {
+}
+.jumbotron {
+    color: #ffffff;
+    background-size: cover;
+    background-image: url('../Images/missionaries.jpg');
+    background-repeat: no-repeat;
+    background-position: 0px -150px;
+    height: 400px;
+}
